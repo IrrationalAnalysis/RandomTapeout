@@ -59,7 +59,7 @@ module tt_um_irrationalanalysis_PRBS31 (
 );
 
 	reg data [31:0] = 32'b0;
-	reg random [31:0] = 32'b0;
+	logic random [31:0] = 32'b0;
     
     
     always @(posedge clk or posedge rst_n) begin
