@@ -58,8 +58,8 @@ module tt_um_irrationalanalysis_PRBS31 (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-	wire data [31:0] = 32'b0;
-	wire random [31:0] = 32'b0;
+	reg data [31:0] = 32'b0;
+	reg random [31:0] = 32'b0;
     
     
     always @(posedge clk or posedge rst_n) begin
