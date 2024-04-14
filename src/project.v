@@ -59,6 +59,7 @@ module tt_um_irrationalanalysis_PRBS31 (
 );
 
 	wire data [31:0] = 32'b0;
+	wire random [31:0] = 32'b0;
     
     
     always @(posedge clk or posedge rst_n) begin
@@ -67,14 +68,14 @@ module tt_um_irrationalanalysis_PRBS31 (
         end
 	    
         data <= {out_data[23:0], ui_in};
-	    wire random [31:0] <= prbs31(data); 
+	random <= prbs31(data); 
         
 
     end
 
     
   // All output pins must be assigned. If not used, assign to 0.
-	assign uo_out = pwire [7:0];   
+assign uo_out = random [7:0];   
   assign uio_out = 0;
   assign uio_oe  = 0;
 
