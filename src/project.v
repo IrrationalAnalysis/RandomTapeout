@@ -63,17 +63,17 @@ module tt_um_irrationalanalysis_PRBS31 (
     
     always @(posedge clk or posedge rst_n) begin
         if (rst_n) begin
-            data = 32'b0;
+            data <= 32'b0;
         end
-        data = {out_data[23:0], ui_in};
-
+        data <= {out_data[23:0], ui_in};
+	assign uo_out <= prbs31(data); 
         
 
     end
 
     
   // All output pins must be assigned. If not used, assign to 0.
-    assign uo_out = prbs31(data);  
+     
   assign uio_out = 0;
   assign uio_oe  = 0;
 
