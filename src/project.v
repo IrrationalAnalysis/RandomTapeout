@@ -58,7 +58,7 @@ module tt_um_irrationalanalysis_PRBS31 (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-	reg data [31:0] = 32'b0;
+	logic data [31:0] = 32'b0;
 	logic random [31:0] = 32'b0;
     
     
@@ -75,7 +75,7 @@ module tt_um_irrationalanalysis_PRBS31 (
 
     
   // All output pins must be assigned. If not used, assign to 0.
-assign uo_out = random [7:0];   
+assign uo_out = random[7:0];   
   assign uio_out = 0;
   assign uio_oe  = 0;
 
