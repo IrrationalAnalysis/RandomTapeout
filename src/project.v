@@ -63,9 +63,9 @@ module tt_um_irrationalanalysis_PRBS31 (
     
     always @(posedge clk or posedge rst_n) begin
         if (rst_n) begin
-            data <= 32'b0;
+            data = 32'b0;
         end
-        data <= {out_data[23:0], ui_in};
+        data = {out_data[23:0], ui_in};
 
         
 
