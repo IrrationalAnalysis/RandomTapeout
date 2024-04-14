@@ -5,48 +5,6 @@
 
 `define default_netname none
 
-
-function [31:0] prbs31;
-	input [31:0] in;
-	begin
-		prbs31[31] = in[30] ^ in[27];
-		prbs31[30] = in[29] ^ in[26];
-		prbs31[29] = in[28] ^ in[25];
-		prbs31[28] = in[27] ^ in[24];
-		prbs31[27] = in[26] ^ in[23];
-		prbs31[26] = in[25] ^ in[22];
-		prbs31[25] = in[24] ^ in[21];
-		prbs31[24] = in[23] ^ in[20];
-		prbs31[23] = in[22] ^ in[19];
-		prbs31[22] = in[21] ^ in[18];
-		prbs31[21] = in[20] ^ in[17];
-		prbs31[20] = in[19] ^ in[16];
-		prbs31[19] = in[18] ^ in[15];
-		prbs31[18] = in[17] ^ in[14];
-		prbs31[17] = in[16] ^ in[13];
-		prbs31[16] = in[15] ^ in[12];
-		prbs31[15] = in[14] ^ in[11];
-		prbs31[14] = in[13] ^ in[10];
-		prbs31[13] = in[12] ^ in[ 9];
-		prbs31[12] = in[11] ^ in[ 8];
-		prbs31[11] = in[10] ^ in[ 7];
-		prbs31[10] = in[ 9] ^ in[ 6];
-		prbs31[ 9] = in[ 8] ^ in[ 5];
-		prbs31[ 8] = in[ 7] ^ in[ 4];
-		prbs31[ 7] = in[ 6] ^ in[ 3];
-		prbs31[ 6] = in[ 5] ^ in[ 2];
-		prbs31[ 5] = in[ 4] ^ in[ 1];
-		prbs31[ 4] = in[ 3] ^ in[ 0];
-		prbs31[ 3] = in[ 2] ^ (in[30] ^ in[27]);
-		prbs31[ 2] = in[ 1] ^ (in[29] ^ in[26]);
-		prbs31[ 1] = in[ 0] ^ (in[28] ^ in[25]);
-		prbs31[ 0] = (in[30] ^ in[27]) ^ (in[27] ^ in[24]);
-	end
-endfunction
-
-
-
-
 module tt_um_irrationalanalysis_PRBS31 (
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
@@ -58,17 +16,53 @@ module tt_um_irrationalanalysis_PRBS31 (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-	logic data [31:0] = 32'b0;
-	logic random [31:0] = 32'b0;
+	reg data [31:0] = 32'b0;
+	reg random [31:0] = 32'b0;
     
-    
+//reg [31:0] in;
+reg [31:0] prbs31;
+always @ (*) begin
+	prbs31[31] = data[30] ^ data[27];
+		prbs31[30] = data[29] ^ data[26];
+		prbs31[29] = data[28] ^ data[25];
+		prbs31[28] = data[27] ^ data[24];
+		prbs31[27] = data[26] ^ data[23];
+		prbs31[26] = data[25] ^ data[22];
+		prbs31[25] = data[24] ^ data[21];
+		prbs31[24] = data[23] ^ data[20];
+		prbs31[23] = data[22] ^ data[19];
+		prbs31[22] = data[21] ^ data[18];
+		prbs31[21] = data[20] ^ data[17];
+		prbs31[20] = data[19] ^ data[16];
+		prbs31[19] = data[18] ^ data[15];
+		prbs31[18] = data[17] ^ data[14];
+		prbs31[17] = data[16] ^ data[13];
+		prbs31[16] = data[15] ^ data[12];
+		prbs31[15] = data[14] ^ data[11];
+		prbs31[14] = data[13] ^ data[10];
+		prbs31[13] = data[12] ^ data[ 9];
+		prbs31[12] = data[11] ^ data[ 8];
+		prbs31[11] = data[10] ^ data[ 7];
+		prbs31[10] = data[ 9] ^ data[ 6];
+		prbs31[ 9] = data[ 8] ^ data[ 5];
+		prbs31[ 8] = data[ 7] ^ data[ 4];
+		prbs31[ 7] = data[ 6] ^ data[ 3];
+		prbs31[ 6] = data[ 5] ^ data[ 2];
+  prbs31[ 5] = data[ 4] ^ data[ 1];
+  prbs31[ 4] = data[ 3] ^ data[ 0];
+  prbs31[ 3] = data[ 2] ^ (data[30] ^ data[27]);
+  prbs31[ 2] = data[ 1] ^ (data[29] ^ data[26]);
+  prbs31[ 1] = data[ 0] ^ (data[28] ^ data[25]);
+  prbs31[ 0] = (data[30] ^ data[27]) ^ (data[27] ^ data[24]);
+end
+
     always @(posedge clk or posedge rst_n) begin
         if (rst_n) begin
             data <= 32'b0;
         end
 	    
         data <= {data[23:0], ui_in};
-	random <= prbs31(data); 
+	random <= prbs31; 
         
 
     end
