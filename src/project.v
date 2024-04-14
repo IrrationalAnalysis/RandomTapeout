@@ -67,7 +67,7 @@ module tt_um_irrationalanalysis_PRBS31 (
             data <= 32'b0;
         end
 	    
-        data <= {out_data[23:0], ui_in};
+        data <= {data[23:0], ui_in};
 	random <= prbs31(data); 
         
 
